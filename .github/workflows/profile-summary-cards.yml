@@ -6,7 +6,7 @@ on:
       - main
   create:
   schedule:
-    - cron: "0 */24 * * *" # run every 24 hours exactly
+    - cron: "0 */24 * * *" # run every 24 hours
   workflow_dispatch:
 
 jobs:
@@ -25,16 +25,21 @@ jobs:
       - name: 🛠 Generate GitHub Profile Summary Cards
         uses: vn7n24fzkq/github-profile-summary-cards@release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         with:
           USERNAME: ${{ github.repository_owner }}
-          THEME: dracula # you can change to other themes like 'github_dark', 'solarized', etc.
-          EXCLUDE: "" # you can exclude repos if you want
-          
+          THEME: dracula
+          OUTPUT_FOLDER: profile-summary-cards-output  # ⭐ this will create a new folder
+          EXCLUDE: ""
+
+      - name: 🧹 Clean Unused Files (optional)
+        run: |
+          rm -rf profile-summary-cards-temp || true
+
       - name: 🚀 Commit and Push Changes
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add .
+          git add profile-summary-cards-output
           git commit -m "🔄 Update GitHub Profile Summary Cards" || echo "No changes to commit"
           git push

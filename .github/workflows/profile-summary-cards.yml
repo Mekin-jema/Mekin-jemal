@@ -1,45 +1,33 @@
-name: GitHub-Profile-Summary-Cards
+name: GitHub Profile Summary Cards
 
 on:
   push:
-    branches:
-      - main
-  create:
+    branches: [main]
   schedule:
-    - cron: "0 */24 * * *" # run every 24 hours
+    - cron: '0 0 * * *'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Generate GitHub Profile Summary Cards
     permissions:
       contents: write
-      actions: read
-      issues: read
 
     steps:
-      - name: ⏬ Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: 🛠 Generate GitHub Profile Summary Cards
+      - name: Generate summary cards
         uses: vn7n24fzkq/github-profile-summary-cards@release
         env:
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           USERNAME: ${{ github.repository_owner }}
           THEME: dracula
-          OUTPUT_FOLDER: profile-summary-cards-output  # ⭐ this will create a new folder
-          EXCLUDE: ""
 
-      - name: 🧹 Clean Unused Files (optional)
+      - name: Commit & push
         run: |
-          rm -rf profile-summary-cards-temp || true
-
-      - name: 🚀 Commit and Push Changes
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git config user.name github-actions[bot]
+          git config user.email github-actions[bot]@users.noreply.github.com
           git add profile-summary-cards-output
-          git commit -m "🔄 Update GitHub Profile Summary Cards" || echo "No changes to commit"
+          git commit -m "Update GitHub profile summary cards" || echo "No changes"
           git push

@@ -31,4 +31,3 @@ jobs:
           git add profile-summary-card-output || echo "No changes to add"
           git commit -m "Update GitHub profile summary cards" || echo "No changes"
           git push
-

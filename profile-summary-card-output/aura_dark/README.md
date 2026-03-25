@@ -52,13 +52,3 @@
 ```
 
     
-
----
-
-![](./4-productive-time.svg)
-
-```
-![](https://raw.githubusercontent.com/Mekin-jema/Mekin-jemal/master/profile-summary-card-output/aura_dark/4-productive-time.svg)
-```
-
-    

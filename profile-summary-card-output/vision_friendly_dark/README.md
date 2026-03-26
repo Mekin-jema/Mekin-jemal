@@ -52,3 +52,13 @@
 ```
 
     
+
+---
+
+![](./4-productive-time.svg)
+
+```
+![](https://raw.githubusercontent.com/Mekin-jema/Mekin-jemal/master/profile-summary-card-output/vision_friendly_dark/4-productive-time.svg)
+```
+
+    
